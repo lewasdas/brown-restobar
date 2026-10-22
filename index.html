@@ -276,8 +276,7 @@ nav.links { gap: 18px; }
   .item { padding: 16px 0; }
 
   /* centrado: registro e inicio quedan en el medio de la pantalla */
-  html, body { height: 100%; }
-  .wrap { min-height: 100%; justify-content: center; }
+  .wrap { min-height: 100vh; justify-content: center; }
   #v-registro:not([hidden]), #v-inicio:not([hidden]) { align-items: center; align-content: center; max-width: 1040px; width: 100%; margin-inline: auto; }
   #v-registro:not([hidden]) { grid-template-areas: "hero form" "perks skip"; }
   #v-registro > .skip { align-self: start; justify-self: center; }
@@ -313,14 +312,20 @@ nav.links { gap: 18px; }
 .ej-group { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .ej-group legend { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: .04em; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
 .ej-group legend b { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--yellow); color: var(--on-yellow); font-family: var(--body); font-size: 13px; }
-.ej-opts { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.ej-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.opt { line-height: 1.3; }
 .opt { display: block; padding: 14px 16px; font-weight: 600; }
 .ej-foot { display: flex; gap: 14px; align-items: center; }
 .ej-foot .go { flex: 1; }
+.ej-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.ej-title .price { border: 1px solid var(--yellow); color: var(--yellow); border-radius: 999px; padding: 4px 14px; font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; }
+.ejec { border: 1px solid var(--frame); padding: 22px 18px; position: relative; }
+.ejec::before { content: ""; position: absolute; inset: 5px; border: 1px solid var(--frame); pointer-events: none; }
 .ej-ok { margin: -8px 0 0; min-height: 1.2em; color: var(--yellow); font-size: 14px; font-weight: 600; }
 .send { background: #25a244; }
 @media (min-width: 960px) {
-  #v-carta:not([hidden]), #v-reserva:not([hidden]) { display: flex !important; max-width: 720px; width: 100%; margin-inline: auto; }
+  #v-reserva:not([hidden]) { display: flex !important; max-width: 720px; width: 100%; margin-inline: auto; }
+  section.cat.ejec { display: flex; }
   .ej-opts { grid-template-columns: 1fr 1fr; }
   .res-head h2, .ej-head h2 { font-size: 38px; }
 }
@@ -376,7 +381,7 @@ nav.links { gap: 18px; }
       </button>
       <button class="btn" id="btn-carta" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 3v8a3 3 0 0 0 6 0V3M7 3v18"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg>
-        <span class="txt">Menú ejecutivo<small>Armá tu menú del mediodía y pedilo por WhatsApp</small></span>
+        <span class="txt">Ver la carta y pedir<small>Menú ejecutivo y platos del día, por WhatsApp</small></span>
         <span class="arrow">›</span>
       </button>
       <a class="btn" id="lnk-wa" href="https://wa.me/5493447528538?text=Hola%20Brown!" target="_blank" rel="noopener">
@@ -451,7 +456,7 @@ nav.links { gap: 18px; }
     <div class="kids" id="kids"></div>
     
     <div id="menu" style="display:flex;flex-direction:column;gap:30px"></div>
-    <p class="note">El precio del menú ejecutivo te lo confirma el local por WhatsApp junto con tu pedido.</p>
+    <p class="note">Precios en pesos argentinos, sujetos a confirmación del local. El pedido se confirma por WhatsApp.</p>
   </div>
 </div>
 
@@ -484,7 +489,30 @@ const WHATSAPP = "5493447528538";
 const SHEET_URL = "";
 const KIDS = null;
 const EXTRA = null;
-const MENU = [];
+const EJ_PRECIO = 16500;   // menú ejecutivo: entrada + principal + postre
+const Y = "var(--yellow)";
+// PRECIOS DE REFERENCIA (inventados para la demo): reemplazar por los reales del local
+const MENU = [
+  { id: "entradas", t: "Entradas", c: Y, items: [
+    ["Croquetas de papa y panceta", "6 unidades con alioli de la casa", 7500, ""],
+    ["Omelet caprese", "Tomate, mozzarella y albahaca fresca", 6800, "v"],
+    ["Empanada", "Carne cortada a cuchillo, al horno", 2800, ""],
+  ]},
+  { id: "principales", t: "Principales", c: Y, sub: "Platos del mediodía", items: [
+    ["Suprema con guarnición", "Suprema de pollo con papas o ensalada", 14500, ""],
+    ["Albondiguitas napolitanas", "Con salsa de tomate, jamón y queso gratinado", 13200, ""],
+    ["Ñoquis con pesto", "Ñoquis de papa caseros con pesto de albahaca", 11800, "v"],
+    ["Tallarín con bolognesa", "Pasta casera con salsa bolognesa", 12500, ""],
+    ["Churrasquito con puré", "Churrasco a la plancha con puré de papas", 15800, ""],
+    ["Carré encebollado con papas", "Carré de cerdo con cebollas caramelizadas y papas", 15200, ""],
+  ]},
+  { id: "postres", t: "Postres y café", c: Y, items: [
+    ["Bocha de helado", "Sabor a elección", 4200, ""],
+    ["Flan casero", "Con dulce de leche o crema", 4800, "v"],
+    ["Panqueque", "Con dulce de leche", 5200, "v"],
+    ["Café", "Espresso, cortado o con leche", 2600, ""],
+  ]},
+];
 // Menú ejecutivo (de su historia de Instagram). Precio: lo confirma el local.
 const EJECUTIVO = {
   "Entrada": ["Croquetas de papa y panceta", "Omelet caprese", "Empanada"],
@@ -515,7 +543,6 @@ function renderCtl(id) {
 }
 
 if (!KIDS) $("#kids").hidden = true; else $("#kids").innerHTML = `<div class="k-txt"><h3>${esc(KIDS.n)}</h3><p>${esc(KIDS.d)}</p></div><div class="side" style="grid-row:auto"><span class="price">${money(KIDS.p)}</span>${control(KIDS.id)}</div>`;
-$("#chips").hidden = true;
 $("#chips").innerHTML = MENU.map(c => `<a class="chip" href="#cat-${c.id}" data-jump="cat-${c.id}">${esc(c.t)}</a>`).join("") + (EXTRA ? `<a class="chip" href="#cat-extras" data-jump="cat-extras">Extras</a>` : "");
 
 $("#menu").innerHTML = MENU.map(c => {
@@ -529,22 +556,23 @@ $("#menu").innerHTML = MENU.map(c => {
 }).join("") + (EXTRA ? `<section class="cat" id="cat-extras" style="--c:var(--fg)"><div class="cat-head"><h2>Extras</h2></div><div class="item"><h3>${esc(EXTRA.n)}</h3><p>Soja, teriyaki, acevichada o spicy mayo</p><div class="side"><span class="price">${money(EXTRA.p)}</span>${control("extra")}</div></div></section>` : "");
 
 Object.keys(catalog).forEach(renderCtl);
-// armador del menú ejecutivo
-$("#menu").innerHTML = `<section class="ejec" id="cat-ejecutivo">
-  <div class="ej-head"><p class="kicker">De lunes a viernes al mediodía</p><h2>Menú ejecutivo</h2><p class="tag">Elegí una opción de cada paso y agregalo a tu pedido.</p></div>
+// armador del menú ejecutivo (va primero en la carta)
+$("#chips").insertAdjacentHTML("afterbegin", `<a class="chip" href="#cat-ejecutivo" data-jump="cat-ejecutivo">Menú ejecutivo</a>`);
+$("#menu").insertAdjacentHTML("afterbegin", `<section class="cat ejec" id="cat-ejecutivo">
+  <div class="ej-head"><p class="kicker">De lunes a viernes al mediodía</p><div class="ej-title"><h2>Menú ejecutivo</h2><span class="price">${money(EJ_PRECIO)}</span></div><p class="tag">Entrada + principal + postre. Elegí una opción de cada paso.</p></div>
   ${Object.entries(EJECUTIVO).map(([g, ops], gi) => `<fieldset class="ej-group"><legend><b>${gi + 1}</b> ${esc(g)}</legend><div class="ej-opts">${ops.map((o, i) =>
     `<label class="opt"><input type="radio" name="ej-${gi}" value="${esc(o)}"${i === 0 ? " checked" : ""}><span>${esc(o)}</span></label>`).join("")}</div></fieldset>`).join("")}
   <div class="ej-foot"><div class="stepper"><button class="minus" type="button" id="ej-menos" aria-label="Uno menos">−</button><output id="ej-cant">1</output><button type="button" id="ej-mas" aria-label="Uno más">+</button></div>
   <button class="go" type="button" id="ej-add">Agregar al pedido</button></div>
   <p class="ej-ok" id="ej-ok" role="status"></p>
-</section>`;
+</section>`);
 let ejCant = 1;
 $("#ej-mas").onclick = () => { ejCant = Math.min(20, ejCant + 1); $("#ej-cant").textContent = ejCant; };
 $("#ej-menos").onclick = () => { ejCant = Math.max(1, ejCant - 1); $("#ej-cant").textContent = ejCant; };
 $("#ej-add").onclick = () => {
   const pick = Object.keys(EJECUTIVO).map((_, gi) => document.querySelector(`input[name="ej-${gi}"]:checked`).value);
   const id = "ej|" + pick.join("|");
-  catalog[id] = { n: "Menú ejecutivo: " + pick.join(" + "), p: 0 };
+  catalog[id] = { n: "Menú ejecutivo: " + pick.join(" + "), p: EJ_PRECIO };
   cart[id] = (cart[id] || 0) + ejCant;
   $("#ej-ok").textContent = `Agregado: ${ejCant} × ${pick.join(" + ")}`;
   ejCant = 1; $("#ej-cant").textContent = 1;
