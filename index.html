@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0a">
+<title>Brown Restó Links</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Mulish:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: una columna "en mano"; fondo negro, trébol verde claro como único acento, títulos romanos como en sus menús */
+:root {
+  --bg: #0a0b0a;
+  --surface: #141714;
+  --line: #262b27;
+  --fg: #f3efe4;
+  --muted: #a6aea8;
+  --yellow: #7cc85b;      /* trébol */
+  --on-yellow: #0a1a10;
+  --pink: #7cc85b;
+  --orange: #7cc85b;
+  --green: #7cc85b;
+  --tacc: #e8a3a0;
+  --display: "Cinzel", "Times New Roman", serif;
+  --frame: #2e3a31;
+  --body: "Mulish", system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+html, body { min-height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap {
+  max-width: 460px; margin: 0 auto;
+  padding-block: 32px 120px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 26px;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+a, button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+/* ---------- INICIO ---------- */
+header { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+.logo { width: min(240px, 70%); height: auto; display: block; }
+.tag { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.45; text-wrap: balance; }
+nav.links { display: flex; flex-direction: column; gap: 12px; }
+.btn {
+  display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+  padding: 16px 18px; border-radius: 8px;
+  background: var(--surface); border: 1px solid var(--line); color: var(--fg);
+  text-decoration: none; font-weight: 700; font-size: 17px;
+  transition: transform .12s ease, border-color .12s ease;
+}
+.btn:hover { border-color: var(--yellow); }
+.btn:active { transform: scale(.98); }
+.btn svg { width: 24px; height: 24px; flex: none; }
+.btn .txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.btn small { font-weight: 500; font-size: 13px; color: var(--muted); }
+.btn .arrow { margin-left: auto; opacity: .5; font-size: 20px; }
+.btn.primary { background: var(--yellow); border-color: var(--yellow); color: var(--on-yellow); padding-block: 20px; font-weight: 700; font-size: 19px; letter-spacing: .01em; }
+.btn.primary small { color: var(--on-yellow); opacity: .75; }
+.bun { position: relative; width: 64px; height: 26px; align-self: center; }
+.bun span { position: absolute; left: 0; top: 11px; width: 64px; height: 3px; background: var(--yellow); border-radius: 2px; }
+.bun span:nth-child(1) { transform: rotate(-12deg); }
+.bun span:nth-child(2) { transform: rotate(-4deg); top: 15px; }
+.bun span:nth-child(3) { display: none; }
+.info { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-block: 18px 0; }
+.info b { color: var(--fg); font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: .08em; padding-top: 2px; }
+.info span { min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- CARTA ---------- */
+.top { display: flex; align-items: center; gap: 12px; }
+.back { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-weight: 700; font-size: 14px; }
+.top img { height: 40px; width: auto; margin-left: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chips {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  background: var(--bg); padding-block: 10px; margin-block: -10px;
+}
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 14px; font-weight: 700; font-size: 14px; text-decoration: none; color: var(--fg); }
+.kids { display: flex; gap: 14px; align-items: center; background: var(--surface); color: var(--fg); border: 1px solid var(--yellow); border-radius: 8px; padding: 14px 16px; }
+.kids .k-txt { min-width: 0; flex: 1; }
+.kids h3 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 18px; }
+.kids p { margin: 3px 0 0; font-size: 12px; font-weight: 600; opacity: .75; }
+.kids h3 { color: var(--yellow); }
+.kids .price { color: var(--fg); }
+
+section.cat { display: flex; flex-direction: column; gap: 4px; scroll-margin-top: 64px; }
+.cat-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--c); }
+.cat-head h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 26px; letter-spacing: .04em; color: var(--c); }
+.cat-head small { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; text-align: right; }
+.item { display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.item:last-child { border-bottom: 0; }
+.item h3 { margin: 0; font-size: 16px; font-weight: 600; color: var(--c); display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
+.item p { margin: 0; grid-column: 1; font-size: 13px; line-height: 1.4; color: var(--muted); }
+.side { grid-column: 2; grid-row: 1 / span 2; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.price { font-weight: 900; font-variant-numeric: tabular-nums; font-size: 16px; white-space: nowrap; }
+.badge { font-size: 10px; font-weight: 900; border-radius: 999px; padding: 2px 7px; letter-spacing: .04em; color: var(--bg); }
+.badge.v { background: var(--green); }
+.badge.t { background: var(--tacc); }
+.stepper { display: flex; align-items: center; gap: 2px; }
+.add, .stepper button { width: 34px; height: 34px; border-radius: 999px; border: 1.5px solid var(--yellow); background: transparent; color: var(--yellow); font-size: 20px; font-weight: 700; line-height: 1; display: grid; place-items: center; }
+.stepper button.minus { border-color: var(--line); color: var(--fg); }
+.stepper output { min-width: 26px; text-align: center; font-weight: 900; font-variant-numeric: tabular-nums; }
+.note { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5; }
+
+/* ---------- BARRA DE PEDIDO ---------- */
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: linear-gradient(to top, var(--bg) 70%, transparent);
+}
+.bar button { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; max-width: 460px; margin: 0 auto; background: var(--yellow); color: var(--on-yellow); border: 0; border-radius: 8px; padding: 16px 18px; font-weight: 900; font-size: 16px; }
+.bar .count { background: var(--on-yellow); color: var(--yellow); border-radius: 999px; padding: 2px 9px; font-size: 13px; }
+.sheet-bg { position: fixed; inset: 0; z-index: 30; background: rgb(0 0 0 / .6); display: flex; align-items: flex-end; justify-content: center; }
+.sheet {
+  width: 100%; max-width: 480px; max-height: 88%; overflow-y: auto;
+  background: var(--surface); border-radius: 20px 20px 0 0; border-top: 1px solid var(--line);
+  padding-block: 20px calc(20px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 14px;
+}
+.sheet h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 24px; }
+.lines { display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.line { display: flex; justify-content: space-between; gap: 12px; }
+.line span:first-child { min-width: 0; }
+.total { display: flex; justify-content: space-between; font-weight: 900; font-size: 18px; border-top: 1px solid var(--line); padding-top: 12px; font-variant-numeric: tabular-nums; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.seg label { border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; text-align: center; font-weight: 700; cursor: pointer; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label:has(input:checked) { border-color: var(--yellow); color: var(--yellow); }
+.field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.field input, .field textarea { font: inherit; font-size: 16px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px; width: 100%; }
+.field textarea { min-height: 70px; resize: vertical; }
+.send { background: var(--green); color: #fff; border: 0; border-radius: 8px; padding: 16px; font-weight: 900; font-size: 17px; text-align: center; text-decoration: none; display: block; }
+.ghost { background: none; border: 0; color: var(--muted); font-weight: 700; padding: 6px; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+
+/* ---------- REGISTRO ---------- */
+.reg { display: flex; flex-direction: column; gap: 22px; padding-top: 12px; }
+.reg header { gap: 14px; }
+.reg h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1.1; text-wrap: balance; }
+.reg h1 em { font-style: normal; color: var(--yellow); }
+.perks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.perk { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; font-size: 13px; color: var(--muted); line-height: 1.35; }
+.perk b { display: block; color: var(--yellow); font-size: 15px; margin-bottom: 2px; }
+.reg form { display: flex; flex-direction: column; gap: 14px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.field select { font: inherit; font-size: 16px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px; width: 100%; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted); line-height: 1.4; }
+.check input { width: 20px; height: 20px; accent-color: var(--yellow); flex: none; margin: 0; }
+.go { background: var(--yellow); color: var(--on-yellow); border: 0; border-radius: 8px; padding: 18px; font-weight: 900; font-size: 18px; }
+.err { color: var(--tacc); font-size: 13px; margin: -6px 0 0; }
+.skip { align-self: center; }
+/* ================= REDISEÑO CÚRCUMA: la carta impresa del local llevada al celular ================= */
+body { background:
+  radial-gradient(120% 60% at 50% -10%, rgb(124 200 91 / .13), transparent 60%), var(--bg); background-attachment: fixed; }
+.wrap { gap: 30px; }
+/* marco doble como la carta impresa */
+.frame { position: relative; padding: 30px 18px 26px; border: 1px solid var(--frame); }
+.frame::before { content: ""; position: absolute; inset: 5px; border: 1px solid var(--frame); pointer-events: none; }
+.kicker { margin: 0; font-family: var(--body); font-weight: 500; font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--yellow); }
+.logo { width: min(250px, 72%); }
+header { gap: 12px; }
+.tag { font-size: 14px; }
+.dia { color: var(--yellow); }
+/* reseña: tarjeta protagonista */
+.btn.primary { flex-direction: column; align-items: flex-start; gap: 6px; padding: 20px 20px 18px; border-radius: 4px; position: relative; overflow: hidden; }
+.btn.primary .stars-big { font-size: 26px; letter-spacing: 6px; line-height: 1; }
+.btn.primary .txt { font-family: var(--display); font-weight: 800; font-size: 22px; }
+.btn.primary .txt small { font-family: var(--body); font-weight: 500; font-size: 13px; }
+.btn.primary .arrow { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 28px; opacity: .6; }
+.btn.primary > svg { display: none; }
+/* resto de links: lista con filetes, no cajas */
+.list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.list .btn { background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 16px 4px; }
+.list .btn:hover { border-color: var(--line); background: rgb(255 255 255 / .02); }
+.list .btn svg { color: var(--yellow); }
+nav.links { gap: 18px; }
+/* separador: palitos */
+.bun { width: 70px; height: 22px; }
+/* info */
+.info { border-top: 0; padding-top: 0; }
+.info b { color: var(--yellow); }
+/* ---------- carta ---------- */
+.top { padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+.back { border-radius: 4px; }
+.chips { gap: 6px; }
+.chip { border-radius: 4px; background: transparent; font-weight: 500; font-size: 13px; letter-spacing: .02em; color: var(--muted); }
+.chip.on { background: var(--yellow); border-color: var(--yellow); color: var(--on-yellow); font-weight: 600; }
+.cat-head { border-bottom: 0; padding-bottom: 2px; flex-direction: column; align-items: flex-start; gap: 8px; }
+.cat-head h2 { font-family: var(--display); font-weight: 800; font-size: 25px; letter-spacing: .02em; text-transform: uppercase; color: var(--fg); display: flex; align-items: center; gap: 10px; }
+.cat-head h2::before { content: ""; width: 9px; height: 9px; background: var(--c); transform: rotate(45deg); flex: none; }
+.cat-head small { background: var(--fg); color: var(--bg); padding: 4px 14px 4px 10px; font-size: 10.5px; letter-spacing: .08em; clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 50%, 100% 100%, 6px 100%, 0 50%); text-align: left; }
+.item { grid-template-columns: 1fr auto; gap: 6px 12px; padding: 13px 0; border-bottom: 1px dashed var(--line); }
+.iname { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.iname h3 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--fg); flex: 0 1 auto; min-width: 0; }
+.iname .dots { flex: 1 1 18px; min-width: 18px; border-bottom: 1px dotted var(--muted); opacity: .55; transform: translateY(-4px); }
+.iname .price { border: 1px solid var(--yellow); color: var(--yellow); border-radius: 999px; padding: 2px 10px; font-size: 14px; font-weight: 600; letter-spacing: .02em; }
+.item p { grid-column: 1; font-size: 13px; }
+.ictl { grid-column: 2; display: flex; justify-content: flex-end; align-items: flex-start; }
+.iname .badge { align-self: center; }
+.add { background: var(--yellow); color: var(--on-yellow); border-color: var(--yellow); width: 32px; height: 32px; font-size: 19px; }
+.stepper button { width: 32px; height: 32px; }
+.callout { display: flex; gap: 12px; align-items: center; border: 1px solid var(--frame); padding: 14px 16px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.callout::before { content: ""; width: 9px; height: 9px; background: var(--yellow); transform: rotate(45deg); flex: none; }
+.bar button { border-radius: 4px; }
+.sheet { border-radius: 10px 10px 0 0; }
+.go, .send, .seg label, .field input, .field textarea, .field select, .perk { border-radius: 4px; }
+.reg h1 { font-weight: 800; font-size: 28px; }
+.reg h1 em { font-style: italic; }
+.perk b { font-family: var(--display); }
+@media (prefers-reduced-motion: no-preference) {
+  #v-registro:not([hidden]) > *, #v-inicio:not([hidden]) > * { animation: rise .5s ease both; }
+  #v-registro > *:nth-child(2), #v-inicio > *:nth-child(2) { animation-delay: .06s; }
+  #v-registro > *:nth-child(3), #v-inicio > *:nth-child(3) { animation-delay: .12s; }
+  #v-registro > *:nth-child(4), #v-inicio > *:nth-child(4) { animation-delay: .18s; }
+  @keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+}
+/* ================= ESCRITORIO ================= */
+@media (min-width: 960px) {
+  body { font-size: 17px; background:
+    radial-gradient(70% 55% at 18% 0%, rgb(124 200 91 / .16), transparent 60%),
+    radial-gradient(50% 40% at 100% 100%, rgb(243 239 228 / .06), transparent 70%), var(--bg); }
+  .wrap { max-width: 1140px; padding-block: 56px 120px; padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)); }
+
+  /* registro: marca a la izquierda, formulario a la derecha */
+  #v-registro:not([hidden]) { display: grid !important; grid-template-columns: minmax(0, 1fr) 420px; grid-template-areas: "hero form" "perks form" ". skip"; column-gap: 72px; row-gap: 20px; align-items: start; padding-top: 0; }
+  #v-registro > header { grid-area: hero; }
+  #v-registro > .perks { grid-area: perks; }
+  #v-registro > form { grid-area: form; background: var(--surface); border: 1px solid var(--line); padding: 32px; gap: 18px; }
+  #v-registro > .skip { grid-area: skip; }
+
+  /* inicio: cartel fijo a la izquierda, accesos a la derecha */
+  #v-inicio:not([hidden]) { display: grid !important; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-areas: "hero links" "info links" "bun links" "salir links"; column-gap: 72px; row-gap: 24px; align-items: start; }
+  #v-inicio > header { grid-area: hero; }
+  #v-inicio > nav { grid-area: links; position: sticky; top: 40px; padding-top: 8px; }
+  #v-inicio > .info { grid-area: info; padding-inline: 8px; }
+  #v-inicio > .bun { grid-area: bun; justify-self: start; margin-left: 8px; }
+  #v-inicio > #btn-salir { grid-area: salir; justify-self: start; }
+
+  .frame { padding: 64px 40px 52px; min-height: 380px; justify-content: center; }
+  .frame::before { inset: 8px; }
+  .logo { width: min(380px, 80%); }
+  .kicker { font-size: 12px; }
+  .reg h1 { font-size: 40px; }
+  .tag { font-size: 16px; }
+  .btn.primary { padding: 30px 28px 26px; }
+  .btn.primary .txt { font-size: 28px; }
+  .btn.primary .stars-big { font-size: 30px; }
+  .list .btn { padding: 22px 8px; font-size: 18px; transition: padding .15s ease, background .15s ease; }
+  .list .btn:hover { padding-left: 16px; background: rgb(124 200 91 / .05); }
+  .list .btn:hover .arrow { opacity: 1; color: var(--yellow); }
+  .btn.primary:hover { filter: brightness(1.06); }
+
+  /* carta: índice lateral fijo + platos en dos columnas */
+  #v-carta:not([hidden]) { display: grid !important; grid-template-columns: 220px minmax(0, 1fr); column-gap: 56px; row-gap: 24px; align-items: start; }
+  #v-carta > .top { grid-column: 1 / -1; }
+  #v-carta > .chips { grid-column: 1; grid-row: 2 / span 6; position: sticky; top: 32px; flex-direction: column; overflow: visible; margin: 0; padding: 0; gap: 2px; background: transparent; }
+  #v-carta > :not(.top):not(.chips) { grid-column: 2; }
+  .chip { border: 0; border-left: 2px solid var(--line); border-radius: 0; padding: 9px 14px; font-size: 14px; text-align: left; }
+  .chip:hover { color: var(--fg); border-left-color: var(--muted); }
+  .chip.on { background: transparent; color: var(--yellow); border-left-color: var(--yellow); }
+  section.cat { display: grid; grid-template-columns: 1fr 1fr; column-gap: 44px; scroll-margin-top: 32px; }
+  section.cat > .cat-head { grid-column: 1 / -1; margin-bottom: 4px; }
+  .cat-head h2 { font-size: 30px; }
+  #menu { gap: 48px !important; }
+  .item { padding: 16px 0; }
+
+  /* centrado: registro e inicio quedan en el medio de la pantalla */
+  html, body { height: 100%; }
+  .wrap { min-height: 100%; justify-content: center; }
+  #v-registro:not([hidden]), #v-inicio:not([hidden]) { align-items: center; align-content: center; max-width: 1040px; width: 100%; margin-inline: auto; }
+  #v-registro:not([hidden]) { grid-template-areas: "hero form" "perks skip"; }
+  #v-registro > .skip { align-self: start; justify-self: center; }
+  #v-inicio:not([hidden]) { grid-template-areas: "hero links" "info info"; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  #v-inicio > nav { position: static; padding-top: 0; }
+  #v-inicio > .info { justify-self: center; grid-template-columns: repeat(3, auto); column-gap: 48px; row-gap: 6px; padding-top: 28px; border-top: 1px solid var(--line); width: 100%; justify-content: center; grid-auto-flow: column; grid-template-rows: auto auto; }
+  #v-inicio > .bun { display: none; }
+  #v-inicio > #btn-salir { grid-column: 1 / -1; grid-row: 3; justify-self: center; }
+
+  /* pedido: barra flotante abajo a la derecha y ventana centrada */
+  .bar { left: auto; right: 32px; bottom: 24px; width: 380px; padding: 0; background: none; }
+  .bar button { box-shadow: 0 12px 32px rgb(0 0 0 / .45); }
+  .sheet-bg { align-items: center; }
+  .sheet { border-radius: 6px; max-height: 86%; padding: 32px; }
+}
+/* ================= BROWN ================= */
+.bun { display: none; }
+.cat-head h2::before { border-radius: 0 60%; }
+.res-head, .ej-head { display: flex; flex-direction: column; gap: 8px; }
+.res-head h2, .ej-head h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: 30px; letter-spacing: .03em; }
+.resform { display: flex; flex-direction: column; gap: 16px; }
+.resform input[type="date"] { color-scheme: dark; }
+.turnos { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.turnos legend { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.turno-g { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.turno-g > span { width: 100%; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--yellow); font-weight: 700; }
+.turno-g label, .opt { position: relative; cursor: pointer; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+.turno-g label { padding: 10px 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.turno-g input, .opt input { position: absolute; opacity: 0; pointer-events: none; }
+.turno-g label:has(input:checked), .opt:has(input:checked) { border-color: var(--yellow); color: var(--yellow); background: rgb(124 200 91 / .1); }
+.turno-g label:has(input:focus-visible), .opt:has(input:focus-visible) { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.ejec { display: flex; flex-direction: column; gap: 26px; }
+.ej-group { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.ej-group legend { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: .04em; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.ej-group legend b { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--yellow); color: var(--on-yellow); font-family: var(--body); font-size: 13px; }
+.ej-opts { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.opt { display: block; padding: 14px 16px; font-weight: 600; }
+.ej-foot { display: flex; gap: 14px; align-items: center; }
+.ej-foot .go { flex: 1; }
+.ej-ok { margin: -8px 0 0; min-height: 1.2em; color: var(--yellow); font-size: 14px; font-weight: 600; }
+.send { background: #25a244; }
+@media (min-width: 960px) {
+  #v-carta:not([hidden]), #v-reserva:not([hidden]) { display: flex !important; max-width: 720px; width: 100%; margin-inline: auto; }
+  .ej-opts { grid-template-columns: 1fr 1fr; }
+  .res-head h2, .ej-head h2 { font-size: 38px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- ===== VISTA REGISTRO (primera pantalla) ===== -->
+  <div id="v-registro" class="reg" hidden>
+    <header class="frame">
+      <p class="kicker">Restó y bar · Colón</p>
+      <img class="logo" src="logo.png" alt="Brown restó y bar">
+      <h1>Sumate al club <em>Brown</em></h1>
+      <p class="tag">Dejanos tus datos y entrá a la carta.</p>
+    </header>
+    <div class="perks">
+      <div class="perk"><b>Promos</b>Te avisamos primero por WhatsApp.</div>
+      <div class="perk"><b>Cumpleaños</b>Un regalo en tu mes.</div>
+    </div>
+    <form id="reg-form" novalidate>
+      <label class="field">Nombre<input id="r-nombre" autocomplete="name" placeholder="Ej: Martina Gómez" required></label>
+      <label class="field">WhatsApp<input id="r-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej: 3447 123456" required></label>
+      <div class="row2">
+        <label class="field">Día de cumple<select id="r-dia"><option value="">Día</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></label>
+        <label class="field">Mes<select id="r-mes"><option value="">Mes</option><option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select></label>
+      </div>
+      <label class="check"><input type="checkbox" id="r-ok" checked> Acepto que Brown me escriba por WhatsApp con promos. Podés darte de baja cuando quieras.</label>
+      <p class="err" id="r-err" hidden></p>
+      <button class="go" type="submit">Entrar a la carta</button>
+    </form>
+    <button class="ghost skip" type="button" id="r-skip">Ahora no</button>
+  </div>
+
+  <!-- ===== VISTA INICIO ===== -->
+  <div id="v-inicio" hidden style="display:flex;flex-direction:column;gap:26px">
+    <header class="frame">
+      <p class="kicker">Restó y bar · Colón</p>
+      <img class="logo" src="logo.png" alt="Brown restó y bar">
+      <p class="tag" id="saludo">Elegí a dónde querés ir.</p>
+    </header>
+    <nav class="links">
+      <a class="btn primary" id="lnk-resena" href="https://search.google.com/local/writereview?placeid=ChIJl70BNAUzrpURaV3hgRyzwoI" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.5 1.3 6.6L12 17.3l-5.9 3.2 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>
+        <span class="stars-big" aria-hidden="true">★★★★★</span>
+        <span class="txt">Dejanos tu reseña<small>En Google, nos ayuda un montón</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <div class="list">
+      <button class="btn" id="btn-reserva" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M9 15l2 2 4-4"/></svg>
+        <span class="txt">Reservá tu mesa<small>Elegí día, horario y cuántos son</small></span>
+        <span class="arrow">›</span>
+      </button>
+      <button class="btn" id="btn-carta" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 3v8a3 3 0 0 0 6 0V3M7 3v18"/><path d="M17 21V3c-2 1-3 4-3 8h3"/></svg>
+        <span class="txt">Menú ejecutivo<small>Armá tu menú del mediodía y pedilo por WhatsApp</small></span>
+        <span class="arrow">›</span>
+      </button>
+      <a class="btn" id="lnk-wa" href="https://wa.me/5493447528538?text=Hola%20Brown!" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.2c.3 2.4 2.3 4.6 5 5.4l1.2-1.2 1.8 1-.6 1.6c-3.9.2-8-3.9-7.8-7.8l1.6-.6 1 1.8z" fill="currentColor" stroke="none"/></svg>
+        <span class="txt">Reservas y consultas<small>3447 52-8538</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="btn" id="lnk-ig" href="https://www.instagram.com/brown.restoybar/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        <span class="txt">Instagram<small>@brown.restoybar</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="btn" id="lnk-maps" href="https://www.google.com/maps/search/?api=1&amp;query=Brown%20Sarmiento%206%20Col%C3%B3n&amp;query_place_id=ChIJl70BNAUzrpURaV3hgRyzwoI" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <span class="txt">Cómo llegar<small>Sarmiento 6 · Google Maps</small></span>
+        <span class="arrow">›</span>
+      </a>
+      </div>
+    </nav>
+    <div class="bun" aria-hidden="true"><span></span><span></span><span></span></div>
+    <section class="info" aria-label="Datos del local">
+      <b>Horario</b><span>Mié a Dom · 12:00 a 15:00 y 20:00 a 00:00<br>Lunes y martes cerrado</span>
+      <b>Dirección</b><span>Sarmiento 6, Colón, Entre Ríos</span>
+      <b>WhatsApp</b><span>3447 52-8538</span>
+    </section>
+    <button class="ghost skip" type="button" id="btn-salir">Sumarme al club Brown</button>
+  </div>
+
+  <!-- ===== VISTA RESERVA ===== -->
+  <div id="v-reserva" hidden style="flex-direction:column;gap:22px">
+    <div class="top">
+      <button class="back" id="btn-volver2" type="button">‹ Inicio</button>
+      <img src="logo.png" alt="Brown restó y bar">
+    </div>
+    <header class="res-head">
+      <p class="kicker">Restó y bar · Colón</p>
+      <h2>Reservá tu mesa</h2>
+      <p class="tag">Completá los datos y mandanos la reserva por WhatsApp. Te confirmamos enseguida.</p>
+    </header>
+    <form class="resform" id="res-form" novalidate>
+      <label class="field">Nombre<input id="res-nombre" autocomplete="name" placeholder="Ej: Martina Gómez"></label>
+      <div class="row2">
+        <label class="field">Día<input id="res-dia" type="date"></label>
+        <label class="field">Personas<select id="res-pers">
+          <option value="">¿Cuántos?</option><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option value="Más de 10">Más de 10</option>
+        </select></label>
+      </div>
+      <fieldset class="turnos">
+        <legend>Horario</legend>
+        <div class="turno-g"><span>Mediodía</span>
+          <label><input type="radio" name="res-hora" value="12:00">12:00</label><label><input type="radio" name="res-hora" value="12:30">12:30</label><label><input type="radio" name="res-hora" value="13:00">13:00</label><label><input type="radio" name="res-hora" value="13:30">13:30</label><label><input type="radio" name="res-hora" value="14:00">14:00</label>
+        </div>
+        <div class="turno-g"><span>Noche</span>
+          <label><input type="radio" name="res-hora" value="20:30">20:30</label><label><input type="radio" name="res-hora" value="21:00">21:00</label><label><input type="radio" name="res-hora" value="21:30">21:30</label><label><input type="radio" name="res-hora" value="22:00">22:00</label><label><input type="radio" name="res-hora" value="22:30">22:30</label>
+        </div>
+      </fieldset>
+      <label class="field">Comentario (opcional)<textarea id="res-nota" placeholder="Cumpleaños, silla para bebé, mesa afuera, etc."></textarea></label>
+      <p class="err" id="res-err" hidden></p>
+      <a class="send" id="res-send" href="#" target="_blank" rel="noopener">Enviar reserva por WhatsApp</a>
+    </form>
+    <p class="note">La reserva queda confirmada cuando el local te responde.</p>
+  </div>
+
+  <!-- ===== VISTA CARTA ===== -->
+  <div id="v-carta" hidden style="flex-direction:column;gap:22px">
+    <div class="top">
+      <button class="back" id="btn-volver" type="button">‹ Inicio</button>
+      <img src="logo.png" alt="Brown restó y bar">
+    </div>
+    
+    <div class="chips" id="chips"></div>
+    <div class="kids" id="kids"></div>
+    
+    <div id="menu" style="display:flex;flex-direction:column;gap:30px"></div>
+    <p class="note">El precio del menú ejecutivo te lo confirma el local por WhatsApp junto con tu pedido.</p>
+  </div>
+</div>
+
+<div class="bar" id="bar" hidden>
+  <button type="button" id="btn-ver-pedido"><span><span class="count" id="bar-count">0</span>&nbsp; Ver mi pedido</span><span id="bar-total">$0</span></button>
+</div>
+
+<div class="sheet-bg" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <h2 id="sheet-title">Tu pedido</h2>
+    <div class="lines" id="lines"></div>
+    <div class="total"><span>Total</span><span id="sheet-total">$0</span></div>
+    <div class="seg">
+      <label><input type="radio" name="entrega" id="ent-retiro" value="Para comer en el local" checked>En el local</label>
+      <label><input type="radio" name="entrega" id="ent-delivery" value="Para llevar">Para llevar</label>
+    </div>
+    <label class="field">Tu nombre<input id="f-nombre" autocomplete="name" placeholder="Ej: Martina"></label>
+    <label class="field" id="dir-wrap" hidden>Dirección<input id="f-dir" autocomplete="street-address" placeholder="Calle, número, barrio"></label>
+    <label class="field">Aclaraciones<textarea id="f-nota" placeholder="Horario en que pasás, sin sal, etc."></textarea></label>
+    <a class="send" id="send" href="#" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+    <button class="ghost" type="button" id="btn-cerrar">Seguir mirando la carta</button>
+  </div>
+</div>
+
+<script>
+// ====== CONFIG: editá acá precios y productos ======
+const WHATSAPP = "5493447528538";
+// URL del Apps Script de Google Sheets donde se guardan los registros (ver registro_sheets.gs). Vacío = no guarda.
+const SHEET_URL = "";
+const KIDS = null;
+const EXTRA = null;
+const MENU = [];
+// Menú ejecutivo (de su historia de Instagram). Precio: lo confirma el local.
+const EJECUTIVO = {
+  "Entrada": ["Croquetas de papa y panceta", "Omelet caprese", "Empanada"],
+  "Principal": ["Suprema con guarnición", "Albondiguitas napolitanas", "Ñoquis con pesto", "Tallarín con bolognesa", "Churrasquito con puré", "Carré encebollado con papas"],
+  "Postre": ["Bocha de helado", "Flan", "Panqueque", "Café"],
+};
+// ====================================================
+
+const $ = s => document.querySelector(s);
+const money = n => n ? "$" + n.toLocaleString("es-AR") : "a confirmar";
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const catalog = {}; // id -> {n, p, cat}
+const cart = {};    // id -> qty
+
+if (KIDS) catalog[KIDS.id] = { n: KIDS.n, p: KIDS.p };
+if (EXTRA) catalog[EXTRA.id] = { n: EXTRA.n, p: EXTRA.p };
+
+function control(id) {
+  return `<div class="ctl" data-ctl="${id}"></div>`;
+}
+function renderCtl(id) {
+  document.querySelectorAll(`[data-ctl="${id}"]`).forEach(el => {
+    const q = cart[id] || 0;
+    el.innerHTML = q
+      ? `<div class="stepper"><button class="minus" data-dec="${id}" aria-label="Quitar uno">−</button><output>${q}</output><button data-inc="${id}" aria-label="Agregar otro">+</button></div>`
+      : `<button class="add" data-inc="${id}" aria-label="Agregar ${esc(catalog[id].n)}">+</button>`;
+  });
+}
+
+if (!KIDS) $("#kids").hidden = true; else $("#kids").innerHTML = `<div class="k-txt"><h3>${esc(KIDS.n)}</h3><p>${esc(KIDS.d)}</p></div><div class="side" style="grid-row:auto"><span class="price">${money(KIDS.p)}</span>${control(KIDS.id)}</div>`;
+$("#chips").hidden = true;
+$("#chips").innerHTML = MENU.map(c => `<a class="chip" href="#cat-${c.id}" data-jump="cat-${c.id}">${esc(c.t)}</a>`).join("") + (EXTRA ? `<a class="chip" href="#cat-extras" data-jump="cat-extras">Extras</a>` : "");
+
+$("#menu").innerHTML = MENU.map(c => {
+  const rows = c.items.map(([n, d, p, f], i) => {
+    const id = `${c.id}-${i}`;
+    catalog[id] = { n, p, cat: c.t };
+    const badges = (f.includes("t") ? `<i class="badge t">SIN TACC</i>` : "") + (f.includes("v") ? `<i class="badge v">VEGGIE</i>` : "");
+    return `<div class="item"><div class="iname"><h3>${esc(n)}</h3>${badges}<span class="dots"></span><span class="price">${money(p)}</span></div>${d ? `<p>${esc(d)}</p>` : "<p></p>"}<div class="ictl">${control(id)}</div></div>`;
+  }).join("");
+  return `<section class="cat" id="cat-${c.id}" style="--c:${c.c}"><div class="cat-head"><h2>${esc(c.t)}</h2>${c.sub ? `<small>${c.sub}</small>` : ""}</div>${rows}</section>`;
+}).join("") + (EXTRA ? `<section class="cat" id="cat-extras" style="--c:var(--fg)"><div class="cat-head"><h2>Extras</h2></div><div class="item"><h3>${esc(EXTRA.n)}</h3><p>Soja, teriyaki, acevichada o spicy mayo</p><div class="side"><span class="price">${money(EXTRA.p)}</span>${control("extra")}</div></div></section>` : "");
+
+Object.keys(catalog).forEach(renderCtl);
+// armador del menú ejecutivo
+$("#menu").innerHTML = `<section class="ejec" id="cat-ejecutivo">
+  <div class="ej-head"><p class="kicker">De lunes a viernes al mediodía</p><h2>Menú ejecutivo</h2><p class="tag">Elegí una opción de cada paso y agregalo a tu pedido.</p></div>
+  ${Object.entries(EJECUTIVO).map(([g, ops], gi) => `<fieldset class="ej-group"><legend><b>${gi + 1}</b> ${esc(g)}</legend><div class="ej-opts">${ops.map((o, i) =>
+    `<label class="opt"><input type="radio" name="ej-${gi}" value="${esc(o)}"${i === 0 ? " checked" : ""}><span>${esc(o)}</span></label>`).join("")}</div></fieldset>`).join("")}
+  <div class="ej-foot"><div class="stepper"><button class="minus" type="button" id="ej-menos" aria-label="Uno menos">−</button><output id="ej-cant">1</output><button type="button" id="ej-mas" aria-label="Uno más">+</button></div>
+  <button class="go" type="button" id="ej-add">Agregar al pedido</button></div>
+  <p class="ej-ok" id="ej-ok" role="status"></p>
+</section>`;
+let ejCant = 1;
+$("#ej-mas").onclick = () => { ejCant = Math.min(20, ejCant + 1); $("#ej-cant").textContent = ejCant; };
+$("#ej-menos").onclick = () => { ejCant = Math.max(1, ejCant - 1); $("#ej-cant").textContent = ejCant; };
+$("#ej-add").onclick = () => {
+  const pick = Object.keys(EJECUTIVO).map((_, gi) => document.querySelector(`input[name="ej-${gi}"]:checked`).value);
+  const id = "ej|" + pick.join("|");
+  catalog[id] = { n: "Menú ejecutivo: " + pick.join(" + "), p: 0 };
+  cart[id] = (cart[id] || 0) + ejCant;
+  $("#ej-ok").textContent = `Agregado: ${ejCant} × ${pick.join(" + ")}`;
+  ejCant = 1; $("#ej-cant").textContent = 1;
+  updateBar();
+};
+try {
+  const chips = [...document.querySelectorAll(".chip")];
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    chips.forEach(c => c.classList.toggle("on", c.dataset.jump === e.target.id));
+    const on = chips.find(c => c.dataset.jump === e.target.id);
+    const bar = document.getElementById("chips");
+    if (on && bar.scrollWidth > bar.clientWidth + 4) bar.scrollTo({ left: on.offsetLeft - bar.clientWidth / 2 + on.offsetWidth / 2, behavior: "smooth" });
+  }), { rootMargin: "-30% 0px -65% 0px" });
+  document.querySelectorAll("section.cat").forEach(sec => io.observe(sec));
+} catch (_) {}
+(() => {
+  const now = new Date(), d = now.getDay(), m = now.getHours() * 60 + now.getMinutes();
+  const abreHoy = d !== 1 && d !== 2;
+  const open = abreHoy && ((m >= 720 && m < 900) || m >= 1200);
+  const txt = open ? "● Abierto ahora"
+    : !abreHoy ? "Hoy cerrado · abrimos el miércoles"
+    : m < 720 ? "Hoy abrimos a las 12:00"
+    : m < 1200 ? "Abrimos a la noche, 20:00" : "";
+  $("#saludo").innerHTML = `<span class="dia">${txt}</span><br>Elegí a dónde querés ir.`;
+})();
+
+function totals() {
+  let n = 0, t = 0;
+  for (const [id, q] of Object.entries(cart)) { n += q; t += q * catalog[id].p; }
+  return { n, t };
+}
+function totalTxt() {
+  const { t } = totals();
+  const tbc = Object.keys(cart).some(id => !catalog[id].p);
+  return t ? money(t) + (tbc ? " + a confirmar" : "") : "A confirmar";
+}
+function updateBar() {
+  const { n, t } = totals();
+  $("#bar").hidden = n === 0 || $("#v-carta").hidden;
+  $("#bar-count").textContent = n;
+  $("#bar-total").textContent = totalTxt();
+}
+document.addEventListener("click", e => {
+  const inc = e.target.closest("[data-inc]"), dec = e.target.closest("[data-dec]");
+  if (inc) { const id = inc.dataset.inc; cart[id] = (cart[id] || 0) + 1; renderCtl(id); updateBar(); }
+  if (dec) { const id = dec.dataset.dec; cart[id] = Math.max(0, (cart[id] || 0) - 1); if (!cart[id]) delete cart[id]; renderCtl(id); updateBar(); if ($("#sheet").hidden === false) openSheet(); }
+  const jump = e.target.closest("[data-jump]");
+  if (jump) { e.preventDefault(); document.getElementById(jump.dataset.jump).scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); }
+});
+
+function show(view) {
+  for (const v of ["registro", "inicio", "carta", "reserva"]) {
+    const el = $("#v-" + v);
+    el.hidden = v !== view;
+    el.style.display = v === view ? "flex" : "";
+  }
+  window.scrollTo(0, 0);
+  updateBar();
+}
+$("#btn-carta").onclick = () => { show("carta"); try { history.replaceState(null, "", "#carta"); } catch (_) {} };
+$("#btn-reserva").onclick = () => { show("reserva"); try { history.replaceState(null, "", "#reserva"); } catch (_) {} };
+$("#btn-volver2").onclick = () => { show("inicio"); try { history.replaceState(null, "", location.pathname); } catch (_) {} };
+$("#btn-volver").onclick = () => { show("inicio"); try { history.replaceState(null, "", location.pathname); } catch (_) {} };
+
+// ---- Registro: se muestra primero, una sola vez por celular ----
+let reg = null;
+try { reg = JSON.parse(localStorage.getItem("br_registro") || "null"); } catch (_) {}
+function entrar() { show("inicio"); }
+$("#reg-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const nombre = $("#r-nombre").value.trim();
+  const tel = $("#r-tel").value.replace(/[^0-9+]/g, "");
+  const err = $("#r-err");
+  if (nombre.length < 2) { err.textContent = "Escribí tu nombre."; err.hidden = false; $("#r-nombre").focus(); return; }
+  if (tel.replace(/\D/g, "").length < 8) { err.textContent = "Revisá el número de WhatsApp: con característica, ej. 3447 123456."; err.hidden = false; $("#r-tel").focus(); return; }
+  err.hidden = true;
+  const data = {
+    fecha: new Date().toISOString(), nombre, whatsapp: tel,
+    cumple: $("#r-dia").value && $("#r-mes").value ? `${$("#r-dia").value}/${$("#r-mes").value}` : "",
+    acepta_promos: $("#r-ok").checked ? "si" : "no", origen: "QR mesa",
+  };
+  if (SHEET_URL) { try { fetch(SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(data) }); } catch (_) {} }
+  try { localStorage.setItem("br_registro", JSON.stringify({ nombre })); } catch (_) {}
+  $("#f-nombre").value = nombre; $("#res-nombre").value = nombre; setQuien(nombre);
+  entrar();
+});
+$("#btn-salir").onclick = () => {
+  try { localStorage.removeItem("br_registro"); sessionStorage.removeItem("br_skip"); } catch (_) {}
+  reg = null; $("#reg-form").reset(); $("#f-nombre").value = ""; show("registro");
+};
+function setQuien(n) { $("#btn-salir").textContent = n ? `¿No sos ${n}? Cambiar mis datos` : "Sumarme al club Brown"; }
+$("#r-skip").onclick = () => { try { sessionStorage.setItem("br_skip", "1"); } catch (_) {} setQuien(""); entrar(); };
+
+let skipped = false;
+try { skipped = sessionStorage.getItem("br_skip") === "1"; } catch (_) {}
+if (reg && reg.nombre) { $("#f-nombre").value = reg.nombre; $("#res-nombre").value = reg.nombre; }
+setQuien(reg && reg.nombre);
+if (location.hash === "#carta") show("carta");
+else if (location.hash === "#reserva") show("reserva");
+else if (reg || skipped) show("inicio");
+else show("registro");
+
+function message() {
+  const lines = Object.entries(cart).map(([id, q]) => `• ${q}x ${catalog[id].n}${catalog[id].p ? ` — ${money(q * catalog[id].p)}` : ""}`);
+  const entrega = document.querySelector('input[name="entrega"]:checked').value;
+  const nombre = $("#f-nombre").value.trim(), dir = $("#f-dir").value.trim(), nota = $("#f-nota").value.trim();
+  return [
+    "¡Hola Brown! Quiero hacer este pedido:", "", ...lines, "",
+    `*Total: ${totalTxt()}*`,
+    `Modalidad: ${entrega}`,
+    nombre ? `Nombre: ${nombre}` : "",
+    nota ? `Aclaraciones: ${nota}` : "",
+  ].filter((l, i, a) => l !== "" || (a[i - 1] !== "" && i > 0)).join("\n");
+}
+function refreshSend() { $("#send").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message())}`; }
+function openSheet() {
+  const { n } = totals();
+  if (!n) { $("#sheet").hidden = true; return; }
+  $("#lines").innerHTML = Object.entries(cart).map(([id, q]) =>
+    `<div class="line"><span>${q}× ${esc(catalog[id].n)}</span><span>${money(q * catalog[id].p)}</span></div>`).join("");
+  $("#sheet-total").textContent = totalTxt();
+  $("#sheet").hidden = false;
+  refreshSend();
+}
+$("#btn-ver-pedido").onclick = openSheet;
+$("#btn-cerrar").onclick = () => { $("#sheet").hidden = true; };
+$("#sheet").addEventListener("click", e => { if (e.target.id === "sheet") $("#sheet").hidden = true; });
+document.querySelectorAll('input[name="entrega"]').forEach(r => r.onchange = refreshSend);
+["#f-nombre", "#f-dir", "#f-nota"].forEach(s => $(s).addEventListener("input", refreshSend));
+
+// ---- Reserva por WhatsApp ----
+(() => {
+  const hoy = new Date(); hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset());
+  $("#res-dia").min = hoy.toISOString().slice(0, 10);
+  const DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  function datos() {
+    const hora = document.querySelector('input[name="res-hora"]:checked');
+    return { nombre: $("#res-nombre").value.trim(), dia: $("#res-dia").value, pers: $("#res-pers").value, hora: hora ? hora.value : "", nota: $("#res-nota").value.trim() };
+  }
+  function fechaTxt(iso) {
+    const [y, mo, d] = iso.split("-").map(Number); const f = new Date(y, mo - 1, d);
+    return `${DIAS[f.getDay()]} ${d}/${mo}`;
+  }
+  function problema(x) {
+    if (x.nombre.length < 2) return "Escribí tu nombre.";
+    if (!x.dia) return "Elegí el día.";
+    const [y, mo, d] = x.dia.split("-").map(Number); const wd = new Date(y, mo - 1, d).getDay();
+    if (wd === 1 || wd === 2) return "Lunes y martes el local está cerrado. Elegí otro día.";
+    if (!x.pers) return "Elegí cuántas personas son.";
+    if (!x.hora) return "Elegí un horario.";
+    return "";
+  }
+  function refreshRes() {
+    const x = datos();
+    const txt = ["¡Hola Brown! Quiero reservar una mesa:", "", `• Nombre: ${x.nombre}`, `• Día: ${x.dia ? fechaTxt(x.dia) : ""}`, `• Horario: ${x.hora}`, `• Personas: ${x.pers}`, x.nota ? `• Comentario: ${x.nota}` : ""].filter(Boolean).join("\n");
+    $("#res-send").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(txt)}`;
+  }
+  $("#res-form").addEventListener("input", () => { $("#res-err").hidden = true; refreshRes(); });
+  $("#res-form").addEventListener("change", refreshRes);
+  $("#res-send").addEventListener("click", e => {
+    const msg = problema(datos());
+    if (msg) { e.preventDefault(); $("#res-err").textContent = msg; $("#res-err").hidden = false; }
+  });
+  refreshRes();
+})();
+</script>
+</body>
+</html>
